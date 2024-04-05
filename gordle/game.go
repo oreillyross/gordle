@@ -3,10 +3,12 @@ package gordle
 import (
 	"bufio"
 	"fmt"
-	"golang.org/x/exp/slices"
 	"io"
+	gordle "learn-pockets/gordle/gordle/corpus"
 	"os"
 	"strings"
+
+	"golang.org/x/exp/slices"
 )
 
 type Game struct {
@@ -81,10 +83,11 @@ func splitToUpperCaseChars(input string) []rune {
 	return []rune(strings.ToUpper(input))
 }
 
-func New(playerInput io.Reader, solution string, maxAttempts int) *Game {
+func New(playerInput io.Reader, corpus []string, maxAttempts int) *Game {
+
 	g := &Game{
 		reader:      bufio.NewReader(playerInput),
-		solution:    splitToUpperCaseChars(solution),
+		solution:    splitToUpperCaseChars(gordle.PickWord((corpus))),
 		maxAttempts: maxAttempts,
 	}
 	return g
